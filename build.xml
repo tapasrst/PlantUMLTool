@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="plantuml" default="run" basedir=".">
+	<!-- Command Line string "ant -buildfile <filename> -Dsrcdir=<source directory of scrips> -->
+	
+	<!-- Task definition -->
+		<taskdef name="plantuml" classname="net.sourceforge.plantuml.ant.PlantUmlTask" classpath="lib/plantuml.jar" />
+	<!-- Task Definition -->
+	
+	<target name="run" depends="cdir">
+		<plantuml>
+			<fileset dir="${srcdir}/../output">
+				<include name="**/*.txt" />
+			</fileset>
+		</plantuml>
+		<delete>
+			<fileset dir="${srcdir}/../output">
+				<include name="**/*.txt" />
+			</fileset>
+		</delete>
+	</target>
+	<target name="cdir" depends="mdir">
+		<copy todir="${srcdir}/../output" preservelastmodified = "true">
+			<fileset dir="${srcdir}" casesensitive="yes">
+				<include name="**/*.txt" />
+			</fileset>
+		</copy>
+	</target>
+	<target name="mdir">
+		<mkdir dir="${srcdir}/../output" />
+	</target>
+</project>
